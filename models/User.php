@@ -2,22 +2,21 @@
 
 namespace app\models;
 
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
  * Class User
- *
- * @author Tohirjonov Asadbek <asadbektohirjonov15@gmail.com>
- * @package app\models
- *
  * @property integer $id
  * @property string $username
  * @property string $password_hash
  * @property string $access_token
+ *
+ * @author Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @package app\models
  */
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
-
     public static function tableName()
     {
         return '{{%users}}';
@@ -36,7 +35,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return self::find()->andWhere(['access_token'=>$token])->one();
+        return self::find()->andWhere(['access_token' => $token])->one();
     }
 
     /**
@@ -47,7 +46,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return self::find()->andWhere(['username'=>$username])->one();
+        return self::find()->andWhere(['username' => $username])->one();
     }
 
     /**
@@ -82,6 +81,6 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return \Yii::$app->security->validatePassword($password,$this->password_hash);
+        return \Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 }

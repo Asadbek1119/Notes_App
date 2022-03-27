@@ -2,38 +2,45 @@
   <div class="tc-note">
     <div class="tc-note-header">
                 <span @click="deleteNote" class="tc-note-close">
-                   X
+                    X
                 </span>
     </div>
     <div class="tc-note-title" contenteditable="" @blur="titleChanged">
       {{note.title}}
     </div>
-    <div class="tc-note-body" contenteditable="" @blur="bodyChanged">
-      {{note.body}}
+    <div class="tc-note-body" v-html="note.body" contenteditable="" @blur="bodyChanged">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Note-pages",
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "Note",
   props: {
     note: {
       type: Object,
       required: true
     }
   },
+  watch: {
+    ['note.title']() {
+      console.log("note changed");
+    }
+  },
   methods: {
-    deleteNote(){
-      this.$emit('deleteNote', this.note);
-    },
-    titleChanged($event){
+    titleChanged($event) {
+      // eslint-disable-next-line vue/no-mutating-props
       this.note.title = $event.target.innerHTML;
-      this.$emit('noteUpdated', this.note);
+      this.$emit('updateNote', this.note);
     },
-    bodyChanged($event){
+    bodyChanged($event) {
+      // eslint-disable-next-line vue/no-mutating-props
       this.note.body = $event.target.innerHTML;
-      this.$emit('noteUpdated', this.note);
+      this.$emit('updateNote', this.note);
+    },
+    deleteNote() {
+      this.$emit('deleteNote', this.note);
     }
   }
 }
@@ -49,10 +56,8 @@ export default {
   transition: all 0.5s;
   cursor: pointer;
   font-family: 'Caveat', cursive;
-
   .tc-note-header {
     padding: 10px 16px 0;
-
     .tc-note-close {
       display: inline-block;
       width: 24px;
@@ -61,37 +66,30 @@ export default {
       line-height: 24px;
       text-align: center;
       transition: all 0.3s;
-
       &:hover {
         background-color: rgba(0, 0, 0, 0.2);
       }
-
       &:focus {
         box-shadow: inset 2px 3px 0px rgba(0, 0, 0, 0.8);
       }
     }
-
     .tc-note-close {
       float: right;
     }
   }
-
   .tc-note-title,
   .tc-note-body {
     outline: 0;
   }
-
   .tc-note-title {
     font-size: 24px;
     padding: 10px 16px;
     font-weight: bold;
   }
-
   .tc-note-body {
     font-size: 20px;
     padding: 10px 16px 16px;
   }
-
   &:hover {
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
   }

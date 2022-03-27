@@ -2,22 +2,22 @@
 
 namespace app\modules\api\models;
 
-use app\modules\api\resource\UserResource;
+use app\modules\api\resources\UserResource;
 use Yii;
 use yii\base\Model;
 
 /**
  * LoginForm is the model behind the login form.
  *
- * @property-read User|null $user
+ * @property UserResource|null $user This property is read-only.
  *
  */
 class LoginForm extends \app\models\LoginForm
 {
+
     /**
-     * Finds user by [[username]]
-     *
-     * @return UserResource|null
+     * @return \app\models\User|UserResource|bool|null
+     * @author Zura Sekhniashvili <zurasekhniashvili@gmail.com>
      */
     public function getUser()
     {

@@ -9,7 +9,7 @@ $config = [
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
@@ -17,7 +17,7 @@ $config = [
             'cookieValidationKey' => 'ZLYRBwXdp_v4B-OY35u4UTGIEz6InmZ7',
             'baseUrl' => '',
             'parsers' => [
-                    'application/json' => \yii\web\JsonParser::class
+                'application/json' => \yii\web\JsonParser::class
             ]
         ],
         'cache' => [
@@ -50,6 +50,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                'pluralize' => true,
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],
@@ -67,8 +68,8 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+//         uncomment the following to add your IP if you are not connecting from localhost.
+        'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';

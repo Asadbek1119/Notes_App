@@ -16,9 +16,11 @@
 </template>
 
 <script>
+import authService from "../services/auth.service";
 export default {
-  name: "LoginView",
-  data(){
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "Login",
+  data() {
     return {
       form: {
         username: '',
@@ -28,13 +30,17 @@ export default {
     }
   },
   methods: {
-    login(){
-      console.log("LoginView",this.form);
+    async login() {
+      const {success, errors} = await authService.login(this.form);
+      if (success) {
+        this.$router.push({name: 'home'});
+      } else {
+        this.errors = errors;
+      }
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
 </style>

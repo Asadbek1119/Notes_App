@@ -17,10 +17,10 @@
 </template>
 
 <script>
-
+import authService from "../services/auth.service";
 export default {
-
-  name: "RegistrationView",
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: "Register",
   data() {
     return {
       form: {
@@ -31,9 +31,19 @@ export default {
       errors: null
     }
   },
+  methods: {
+    async register() {
+      console.log(this.form);
+      const {success, errors} = await authService.register(this.form);
+      if (success) {
+        this.$router.push({name: 'home'});
+      } else {
+        this.errors = errors;
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

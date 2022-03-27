@@ -6,22 +6,24 @@
 </template>
 
 <script>
-import Navbar from "./Navbar"
+import authService from "../services/auth.service";
+import Navbar from "./Navbar";
 export default {
   name: "DefaultLayout",
   components: {Navbar},
   data(){
-    return{
-      user:{
-
-      }
+    return {
+      user: {}
     }
+  },
+  async mounted() {
+    this.user = await authService.getUser()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  #default-layout {
-    padding-top: 50px;
-  }
+#default-layout{
+  padding-top: 50px;
+}
 </style>
